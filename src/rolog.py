@@ -13,26 +13,25 @@ from requests import get
 load_dotenv()
 debug = Webhook(os.getenv('DEBUG'))
 localtz = datetime.now(timezone(os.getenv('TIMEZONE')))
-
+reset = False
 def getProcessByName(targetName):
 	for proc in psutil.process_iter():
 		try:
 			if targetName.lower() in proc.name().lower():
 				return True
-		except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess:
+		except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
 			pass
-			return False:
+			return False
 
 def updateRobloxStatus():
-    roblox = getProcessByName("RobloxPlayerBeta.exe")
-	for roblox == none:
-    	roblox = getProcessByName("RobloxPlayerBeta")
+	roblox = getProcessByName("RobloxPlayerBeta.exe")
+	if roblox == None:
+		roblox = getProcessByName("RobloxPlayerBeta")
 		if reset == False:
-    		reset = True
-
+			reset = True
 		
 	reset = False
-	args = roblox.
+	args = roblox.cmdline()
 
 try:
 	hook = Webhook(os.getenv('HOOK'))
